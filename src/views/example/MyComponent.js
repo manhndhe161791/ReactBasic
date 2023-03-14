@@ -25,6 +25,12 @@ class MyComponent extends React.Component {
             identity: currentList
         })
     }
+    componentDidUpdate(preProps, preState) {
+        console.log('>>>>> run did update', 'prev state:', preState, 'current:', this.state)
+    }
+    componentDidMount() {
+        console.log('>>>>> run component did mount')
+    }
 
     render() {
         return (
