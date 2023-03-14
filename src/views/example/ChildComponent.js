@@ -1,4 +1,5 @@
 import React from "react";
+import './Demo.scss';
 
 class ChildComponent extends React.Component {
     state = {
@@ -10,6 +11,12 @@ class ChildComponent extends React.Component {
             showIdentity: !this.state.showIdentity
         })
     }
+
+    handleOnClickDelete = (vocaloid) => {
+        console.log('>>>> delete', vocaloid);
+        this.props.deleteVocaloid(vocaloid);
+    }
+
     render() {
 
         let { identity } = this.props
@@ -18,9 +25,12 @@ class ChildComponent extends React.Component {
         console.log('>>>> check: ', check)
         return (
             <>
+
                 {showIdentity === false ?
                     <div>
-                        <button onClick={() => this.handleShowHide()}>
+                        <button
+                            className="btn-show"
+                            onClick={() => this.handleShowHide()}>
                             Show
                         </button>
                     </div>
@@ -29,13 +39,12 @@ class ChildComponent extends React.Component {
                         <div className="identity">
                             {
                                 identity.map((item, index) => {
-                                    if (item.id < 3) {
-                                        return (
-                                            <div key={item.id}>
-                                                {item.id} - {item.color}
-                                            </div>
-                                        )
-                                    }
+                                    return (
+                                        <div key={item.id}>
+                                            {item.id} - {item.color}
+                                            <></> <span onClick={() => this.handleOnClickDelete(item)}>x</span>
+                                        </div>
+                                    )
                                 })
                             }
                         </div>

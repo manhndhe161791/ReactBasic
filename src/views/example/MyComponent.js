@@ -1,11 +1,10 @@
 import React from "react";
 import ChildComponent from "./ChildComponent";
+import AddComponent from "./AddComponent";
 
 class MyComponent extends React.Component {
 
     state = {
-        firstName: '',
-        lastName: ' ',
         identity: [
             { id: '01', color: 'aqua' },
             { id: '02', color: 'yellow' },
@@ -13,45 +12,31 @@ class MyComponent extends React.Component {
         ]
     }
 
-    handleChangeFirstName = (event) => {
+    addNewVocaloid = (vocaloid) => {
         this.setState({
-            firstName: event.target.value
+            identity: [...this.state.identity, vocaloid]
         })
     }
 
-    handleChangeLastName = (event) => {
+    deleteVocaloid = (vocaloid) => {
+        let currentList = this.state.identity;
+        currentList = currentList.filter(item => item.id !== vocaloid.id);
         this.setState({
-            lastName: event.target.value
+            identity: currentList
         })
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault()
-        console.log(">>>> Check input data:", this.state)
     }
 
     render() {
         return (
             <>
-                <div>
-                    HATSUNE MIKU
-                </div>
-                <form action="/action_page.php">
-                    <label htmlFor="fname">First name:</label><br />
-                    <input type="text" value={this.state.firstName}
-                        onChange={(event) => this.handleChangeFirstName(event)}
-                    />
-                    <br />
-                    <label htmlFor="lname">Last name:</label><br />
-                    <input type="text" value={this.state.lastName}
-                        onChange={(event) => this.handleChangeLastName(event)}
-                    />
-                    <br /><br />
-                    <input type="button" value="Submit"
-                        onClick={(event) => this.handleSubmit(event)}
-                    />
-                </form>
-                <ChildComponent name={this.state.lastName} number="01" identity={this.state.identity} />
+                <AddComponent
+                    addNewVocaloid={this.addNewVocaloid}
+
+                />
+                <ChildComponent
+                    identity={this.state.identity}
+                    deleteVocaloid={this.deleteVocaloid}
+                />
             </>
         )
     }
