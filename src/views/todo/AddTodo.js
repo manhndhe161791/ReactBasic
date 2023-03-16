@@ -17,7 +17,7 @@ class AddTodo extends React.Component {
             return;
         }
         let todo = {
-            id: Math.floor(Math.random() * 11),
+            id: Math.floor(Math.random() * 210),
             title: this.state.title
         }
         this.props.addTodo(todo)
